@@ -2,8 +2,14 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class HelloService {
-  fetch(id): string {
-    return `Hello World ${id}`;
+  fetch(id: number): any {
+    return {
+      name: 'lzc',
+      age: 1,
+      gender: 'male',
+      id: id,
+      role: 'Admin',
+    };
   }
 
   save(message): string {
