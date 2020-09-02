@@ -11,6 +11,7 @@ import {
   UseFilters,
   HttpException,
   HttpStatus,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth, ApiBody, ApiParam } from '@nestjs/swagger';
 import { ExceptionService } from './exception.service';
@@ -42,7 +43,7 @@ export class ExceptionController {
   // 创建
   @Post()
   @ApiBody({ description: '填写更新内容' })
-  save(@Body() { message }): string {
+  save(@Body() { message, id }): string {
     return this.exceptionService.save(message);
   }
 
@@ -50,7 +51,8 @@ export class ExceptionController {
   @Patch(':id')
   @ApiParam({ name: 'id' })
   @ApiBody({ description: '请输入message' })
-  update(@Param() { id }, @Body() { message }): string {
+  update(@Param('id', new ParseIntPipe()) id, @Body() { message }): string {
+    console.log(typeof id);
     return this.exceptionService.update(id, message);
   }
 
